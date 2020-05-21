@@ -52,6 +52,10 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.example.glumacfilmovi.tools.Tools.KEY;
+import static com.example.glumacfilmovi.tools.Tools.NOTIF_CHANNEL_ID;
+
+
 public class DetailsActivityGlumac extends AppCompatActivity implements AdapterFavoritFilm.OnItemClickListener {
 
     private Toolbar toolbar;
@@ -63,11 +67,11 @@ public class DetailsActivityGlumac extends AppCompatActivity implements AdapterF
     private ImageView preview;
 
     private SharedPreferences prefs;
-    public static final String NOTIF_CHANNEL_ID = "notif_channel_007";
+//    public static final String NOTIF_CHANNEL_ID = "notif_channel_007";
 
     private DatabaseHelper databaseHelper;
 
-    public static String KEY = "KEY";
+//    public static String KEY = "KEY";
 
     private Glumac glumac;
 
@@ -99,7 +103,7 @@ public class DetailsActivityGlumac extends AppCompatActivity implements AdapterF
     }
 
     private void fillData(){
-        int key = getIntent().getExtras().getInt( MainActivityGlumac.KEY);
+        int key = getIntent().getExtras().getInt( Tools.KEY);
 
 
         try {
@@ -193,7 +197,7 @@ public class DetailsActivityGlumac extends AppCompatActivity implements AdapterF
     }
 
     private void refreshGlumac() {
-        int key = getIntent().getExtras().getInt( MainActivityGlumac.KEY );
+        int key = getIntent().getExtras().getInt( Tools.KEY );
 
         try {
             glumac = getDatabaseHelper().getmGlumacDao().queryForId( key );

@@ -33,8 +33,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.glumacfilmovi.net.MyServiceContract.APIKEY;
+import static com.example.glumacfilmovi.tools.Tools.KEY;
+
 
 public class ListaFilmova extends AppCompatActivity implements AdapterListaFilmova.OnItemClickListener {
+
+//    public static String KEY = "KEY";
 
     private Toolbar toolbar;
 
@@ -171,11 +175,13 @@ public class ListaFilmova extends AppCompatActivity implements AdapterListaFilmo
         favoriteFIlmovi.setmGlumac( glumac );
 
         try {
+
             getDatabaseHelper().getmFavoriteFilmoviDao().create( favoriteFIlmovi );
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Toast.makeText( getApplicationContext(), " \"" + movie.getTitle() + "\"" + " je dodat u listu", Toast.LENGTH_LONG ).show();
+        Toast.makeText( getApplicationContext(), " \"" + movie.getTitle() + "\"" + " je dodat u listu!!!", Toast.LENGTH_LONG ).show();
 
     }
 }

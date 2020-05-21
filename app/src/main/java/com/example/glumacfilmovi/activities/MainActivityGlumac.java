@@ -52,6 +52,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import static com.example.glumacfilmovi.tools.Tools.KEY;
+import static com.example.glumacfilmovi.tools.Tools.NOTIF_CHANNEL_ID;
 
 public class MainActivityGlumac extends AppCompatActivity implements AdapterGlumacMain.OnItemClickListener {
 
@@ -69,11 +71,11 @@ public class MainActivityGlumac extends AppCompatActivity implements AdapterGlum
     private ImageView preview;
 
     private SharedPreferences prefs;
-    public static final String NOTIF_CHANNEL_ID = "notif_channel_007";
+//    public static final String NOTIF_CHANNEL_ID = "notif_channel_007";
 
     private DatabaseHelper databaseHelper;
 
-    public static String KEY = "KEY";
+//    public static String KEY = "KEY";
 
     private AlertDialog dijalog;
 

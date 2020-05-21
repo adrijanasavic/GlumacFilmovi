@@ -9,6 +9,10 @@ import android.widget.EditText;
 public class Tools {
 
 
+    public static String KEY = "KEY";
+    public static final String NOTIF_CHANNEL_ID = "notif_channel_007";
+
+
     public static boolean validateInput(EditText editText) {
 
         String titleInput = editText.getText().toString().trim();
