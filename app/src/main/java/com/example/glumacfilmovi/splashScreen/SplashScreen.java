@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
-import com.example.glumacfilmovi.MainActivity;
+import com.example.glumacfilmovi.activities.MainActivityGlumac;
 import com.example.glumacfilmovi.R;
 
 import java.io.IOException;
@@ -54,12 +54,12 @@ public class SplashScreen extends Activity {
             new Timer().schedule( new TimerTask() {
                 @Override
                 public void run() {
-                    startActivity( new Intent( SplashScreen.this, MainActivity.class ) );
+                    startActivity( new Intent( SplashScreen.this, MainActivityGlumac.class ) );
                     finish();
                 }
             }, Integer.parseInt( splashTime ) );
         } else {
-            startActivity( new Intent( SplashScreen.this, MainActivity.class ) );
+            startActivity( new Intent( SplashScreen.this, MainActivityGlumac.class ) );
             finish();
         }
     }
