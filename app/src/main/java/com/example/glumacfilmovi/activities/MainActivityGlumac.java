@@ -386,8 +386,8 @@ public class MainActivityGlumac extends AppCompatActivity implements AdapterGlum
 
     @Override
     protected void onResume() {
-        super.onResume();
         refresh();
+        super.onResume();
 
     }
 

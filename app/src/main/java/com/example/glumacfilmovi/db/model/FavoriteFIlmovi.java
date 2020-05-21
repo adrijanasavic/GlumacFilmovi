@@ -13,8 +13,12 @@ public class FavoriteFIlmovi {
     public static final String FIELD_NAME_NAZIV = "mNaziv";
     public static final String FIELD_NAME_IMDB_ID = "imdbID";
     public static final String FIELD_NAME_GODINE = "mGodine";
-    public static final String FIELD_NAME_USERS = "mGlumac";
     public static final String FIELD_NAME_IMAGE = "mImage";
+    public static final String FIELD_NAME_TYPE = "mType";
+
+    public static final String FIELD_NAME_USERS = "glumac";
+
+
 
 
     @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
@@ -29,12 +33,14 @@ public class FavoriteFIlmovi {
     @DatabaseField(columnName = FIELD_NAME_GODINE)
     private String mGodina;
 
-    @DatabaseField(columnName = FIELD_NAME_USERS, foreign = true, foreignAutoRefresh = true)
-    private Glumac mGlumac;
-
     @DatabaseField(columnName = FIELD_NAME_IMAGE)
     private String mImage;
 
+    @DatabaseField(columnName = FIELD_NAME_TYPE)
+    private String mType;
+
+    @DatabaseField(columnName = FIELD_NAME_USERS, foreign = true, foreignAutoRefresh = true)
+    private Glumac mGlumac;
 
     public FavoriteFIlmovi() {
     }
@@ -85,6 +91,14 @@ public class FavoriteFIlmovi {
 
     public void setmImage(String mImage) {
         this.mImage = mImage;
+    }
+
+    public String getmType() {
+        return mType;
+    }
+
+    public void setmType(String mType) {
+        this.mType = mType;
     }
 
     @Override

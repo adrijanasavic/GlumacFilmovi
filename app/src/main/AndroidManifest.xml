@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.DetailsActivityGlumac"></activity>
+        <activity android:name=".activities.FilmDetails"></activity>
+        <activity android:name=".activities.ListaFilmova" />
+        <activity android:name=".activities.DetailsActivityGlumac" />
         <activity android:name=".activities.MainActivityGlumac" />
         <activity android:name=".settings.SettingsActivity" />
         <activity android:name=".splashScreen.SplashScreen">

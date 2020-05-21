@@ -31,4 +31,9 @@ dependencies {
 
     implementation 'com.j256.ormlite:ormlite-android:4.48'
 
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 }
