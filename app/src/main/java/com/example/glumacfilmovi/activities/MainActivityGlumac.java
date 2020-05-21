@@ -7,9 +7,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +26,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +42,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.glumacfilmovi.R;
+import com.example.glumacfilmovi.adapters.AdapterGlumacMain;
 import com.example.glumacfilmovi.db.DatabaseHelper;
 import com.example.glumacfilmovi.db.model.Glumac;
 import com.example.glumacfilmovi.dialog.AboutDialog;
@@ -47,7 +53,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MainActivityGlumac extends AppCompatActivity {
+public class MainActivityGlumac extends AppCompatActivity implements AdapterGlumacMain.OnItemClickListener {
 
     private Toolbar toolbar;
     private ArrayList<String> drawerItems;
@@ -67,6 +73,10 @@ public class MainActivityGlumac extends AppCompatActivity {
 
     private DatabaseHelper databaseHelper;
 
+    public static String KEY = "KEY";
+
+    private AlertDialog dijalog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -75,8 +85,38 @@ public class MainActivityGlumac extends AppCompatActivity {
         setupToolbar();
         fillDrawerData();
         setupDrawer();
+
+
+        createNotificationChannel();
+        prefs = PreferenceManager.getDefaultSharedPreferences( this );
+        showGlumac();
+
     }
 
+    private void showGlumac() {
+
+        final RecyclerView recyclerView = this.findViewById( R.id.rvList );
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
+        recyclerView.setLayoutManager( layoutManager );
+
+        AdapterGlumacMain adapter = new AdapterGlumacMain( getDatabaseHelper(), this );
+        recyclerView.setAdapter( adapter );
+
+    }
+
+    private void refresh() {
+
+        RecyclerView recyclerView = findViewById( R.id.rvList );
+        if (recyclerView != null) {
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
+            recyclerView.setLayoutManager( layoutManager );
+
+
+            AdapterGlumacMain adapter = new AdapterGlumacMain( getDatabaseHelper(), this );
+            recyclerView.setAdapter( adapter );
+
+        }
+    }
 
     private void addGlumac() {
         final Dialog dialog = new Dialog( this );
@@ -150,7 +190,8 @@ public class MainActivityGlumac extends AppCompatActivity {
                             builder.setLargeIcon( bitmap );
                             notificationManager.notify( 1, builder.build() );
                         }
-
+                        refresh();
+                        reset();
 
                     } catch (NumberFormatException e) {
                         Toast.makeText( MainActivityGlumac.this, "Rating mora biti broj", Toast.LENGTH_SHORT ).show();
@@ -331,13 +372,23 @@ public class MainActivityGlumac extends AppCompatActivity {
         }
     }
 
-
-    private void
-    selectPicture() {
+    private void selectPicture() {
         if (isStoragePermissionGranted()) {
             Intent i = new Intent( Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
             startActivityForResult( i, SELECT_PICTURE );
         }
+    }
+
+    private void reset() {
+        imagePath = "";
+        preview = null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh();
+
     }
 
     @Override
@@ -359,4 +410,40 @@ public class MainActivityGlumac extends AppCompatActivity {
         return databaseHelper;
     }
 
+    private void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "My Channel";
+            String description = "Description of My Channel";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel( NOTIF_CHANNEL_ID, name, importance );
+            channel.setDescription( description );
+
+            NotificationManager notificationManager = getSystemService( NotificationManager.class );
+            notificationManager.createNotificationChannel( channel );
+        }
+    }
+
+    private void showDialog() {
+        if (dijalog == null) {
+            dijalog = new AboutDialog( MainActivityGlumac.this ).prepareDialog();
+        } else {
+            if (dijalog.isShowing()) {
+                dijalog.dismiss();
+            }
+        }
+        dijalog.show();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+        Intent i = new Intent( MainActivityGlumac.this, DetailsActivityGlumac.class );
+        try {
+            i.putExtra(KEY, getDatabaseHelper().getmGlumacDao().queryForAll().get( position ).getmId() );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        startActivity( i );
+    }
 }
