@@ -6,9 +6,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,7 +38,7 @@ import static com.example.glumacfilmovi.net.MyServiceContract.APIKEY;
 import static com.example.glumacfilmovi.tools.Tools.KEY;
 
 
-public class ListaFilmova extends AppCompatActivity implements AdapterListaFilmova.OnItemClickListener {
+public class ListaFilmova extends AppCompatActivity implements AdapterListaFilmova.OnItemClickListener, AdapterListaFilmova.OnItemLongClickListener {
 
 //    public static String KEY = "KEY";
 
@@ -113,7 +115,7 @@ public class ListaFilmova extends AppCompatActivity implements AdapterListaFilmo
                         layoutManager = new LinearLayoutManager( ListaFilmova.this );
                         recyclerView.setLayoutManager( layoutManager );
 
-                        adapter = new AdapterListaFilmova( ListaFilmova.this, search, ListaFilmova.this );
+                        adapter = new AdapterListaFilmova( ListaFilmova.this, search, ListaFilmova.this, ListaFilmova.this );
                         recyclerView.setAdapter( adapter );
 
                         Toast.makeText( ListaFilmova.this, "Prikaz filmova/serija.", Toast.LENGTH_SHORT ).show();
@@ -149,7 +151,7 @@ public class ListaFilmova extends AppCompatActivity implements AdapterListaFilmo
 
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled( true );
-            actionBar.setHomeAsUpIndicator( R.drawable.back );
+            actionBar.setHomeAsUpIndicator( R.drawable.heart );
             actionBar.setHomeButtonEnabled( true );
             actionBar.show();
         }
@@ -183,6 +185,17 @@ public class ListaFilmova extends AppCompatActivity implements AdapterListaFilmo
         }
         Toast.makeText( getApplicationContext(), " \"" + movie.getTitle() + "\"" + " je dodat u listu!!!", Toast.LENGTH_LONG ).show();
 
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+
+        Search film = adapter.get(position);
+
+        Intent i = new Intent(this, FilmDetails.class);
+        i.putExtra(KEY, film.getImdbID());
+        i.putExtra("id", film.getImdbID());
+        startActivity(i);
     }
 }
 

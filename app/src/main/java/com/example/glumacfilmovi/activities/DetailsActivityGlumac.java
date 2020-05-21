@@ -167,7 +167,7 @@ public class DetailsActivityGlumac extends AppCompatActivity implements AdapterF
         try {
             getDatabaseHelper().getmGlumacDao().delete( glumac );
 
-            String tekstNotifikacija = "Glumac je obrisan";
+            String tekstNotifikacija = "Glumac " + glumac.getmIme()+ " je obrisan";
 
             boolean toast = prefs.getBoolean( getString( R.string.toast_key ), false );
             boolean notif = prefs.getBoolean( getString( R.string.notif_key ), false );
