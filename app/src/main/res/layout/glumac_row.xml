@@ -44,7 +44,8 @@
             android:layout_toRightOf="@id/ivMalaSlika1"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="Ime" />
+            tools:text="Ime"
+            android:layout_marginStart="0.5mm" />
 
         <TextView
             android:id="@+id/tvPrezime"

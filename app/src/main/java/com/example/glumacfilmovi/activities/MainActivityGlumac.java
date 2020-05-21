@@ -23,6 +23,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -141,6 +142,8 @@ public class MainActivityGlumac extends AppCompatActivity implements AdapterGlum
             public void onClick(View v) {
 
                 EditText glumacIme = dialog.findViewById( R.id.glumac_ime );
+                glumacIme.setPaintFlags( glumacIme.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG );// TODO Podevucena slova
+
                 EditText glumacPrezime = dialog.findViewById( R.id.glumac_prezime );
                 EditText glumacBiografija = dialog.findViewById( R.id.glumac_biografija );
                 EditText glumacDatum = dialog.findViewById( R.id.glumac_datum );
