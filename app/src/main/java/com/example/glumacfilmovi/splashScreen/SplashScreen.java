@@ -41,7 +41,7 @@ public class SplashScreen extends Activity {
             InputStream is;
             imageView.animate().rotation( 1800 ).alpha( 0 ).setDuration( 10000 );
             imageView.animate().scaleX( 0.5f ).scaleY( 0.5f ).setDuration( 3000 );
-            imageView.animate().translationXBy( 1000 ).rotation( 3600 ).setDuration( 3000 );
+//            imageView.animate().translationXBy( 1000 ).rotation( 3600 ).setDuration( 3000 );
 
             try {
                 is = getAssets().open( "android_pink.jpg" );
